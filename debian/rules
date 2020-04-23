@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=nectarallocationclient
+
+# main packaging script based on dh7 syntax
+%:
+	dh $@ --with python3 --buildsystem=pybuild
