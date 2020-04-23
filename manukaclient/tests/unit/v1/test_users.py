@@ -45,3 +45,10 @@ class UsersTest(utils.TestCase):
                               json.dumps({'orcid': new_orcid}))
         self.assertIsInstance(u, users.User)
         self.assertEqual(new_orcid, u.orcid)
+
+    def test_search(self):
+        query = 'needle'
+        ul = self.cs.users.search(query)
+        self.cs.assert_called('POST', '/v1/users/search/', {'search': query})
+        for u in ul:
+            self.assertIsInstance(u, users.User)
