@@ -36,13 +36,38 @@ class ListUsers(command.Lister):
         )
 
 
+class SearchUsers(command.Lister):
+    """Search users."""
+
+    log = logging.getLogger(__name__ + '.ListUsers')
+
+    def get_parser(self, prog_name):
+        parser = super().get_parser(prog_name)
+        parser.add_argument(
+            'query',
+            metavar='<query>',
+            help=('Search query')
+        )
+        return parser
+
+    def take_action(self, parsed_args):
+        self.log.debug('take_action(%s)', parsed_args)
+        client = self.app.client_manager.account
+        users = client.users.search(parsed_args.query)
+        columns = ['id', 'user_id', 'email']
+        return (
+            columns,
+            (osc_utils.get_item_properties(q, columns) for q in users)
+        )
+
+
 class ShowUser(command.ShowOne):
     """Show user details."""
 
     log = logging.getLogger(__name__ + '.ShowUser')
 
     def get_parser(self, prog_name):
-        parser = super(ShowUser, self).get_parser(prog_name)
+        parser = super().get_parser(prog_name)
         parser.add_argument(
             'id',
             metavar='<id>',
@@ -67,7 +92,7 @@ class UpdateUser(command.ShowOne):
     log = logging.getLogger(__name__ + '.UpdateUser')
 
     def get_parser(self, prog_name):
-        parser = super(UpdateUser, self).get_parser(prog_name)
+        parser = super().get_parser(prog_name)
         parser.add_argument(
             'id',
             metavar='<id>',
