@@ -32,3 +32,7 @@ class UserManager(base.BasicManager):
 
     def get_by_os(self, user_id):
         return self._get('v1/users-os/%s/' % user_id)
+
+    def search(self, query):
+        return self._search('/%s/search/' % self.base_url,
+                            data={'search': query})
