@@ -143,6 +143,36 @@ class Manager(object):
                                        resp=resp)
         return self.resource_class(self, body, loaded=True, resp=resp)
 
+    def _search(self, url, data, response_key='results', obj_class=None,
+              items=None, headers=None, limit=None):
+
+        if items is None:
+            items = []
+        if headers is None:
+            headers = {}
+        resp, body = self.api.post(url, headers=headers, data=data)
+
+        if obj_class is None:
+            obj_class = self.resource_class
+
+        if response_key and response_key in body:
+            data = body[response_key]
+        else:
+            data = body
+
+        if all([isinstance(res, six.string_types) for res in data]):
+            new_items = data
+        else:
+            new_items = [obj_class(self, res, loaded=True)
+                         for res in data if res]
+
+        items = items + new_items
+        if 'next' in body and body['next']:
+            items = self._list(body['next'], response_key, obj_class, items,
+                               headers, None, limit)
+
+        return ListWithMeta(items, resp)
+
     def convert_into_with_meta(self, item, resp):
         if isinstance(item, six.string_types):
             if six.PY2 and isinstance(item, six.text_type):
