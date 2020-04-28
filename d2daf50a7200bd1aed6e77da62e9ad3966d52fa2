@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92eee910_7f82626b",
+        "filename": "manukaclient/osc/plugin.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2020-04-28T05:35:40Z",
+      "side": 1,
+      "message": "Good ... we have this from day one.",
+      "revId": "d2daf50a7200bd1aed6e77da62e9ad3966d52fa2",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02ca12d4_2a3cffc5",
+        "filename": "manukaclient/osc/v1/users.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2020-04-28T05:35:40Z",
+      "side": 1,
+      "message": "Should this class be here at all?  If yes, should it have a get_parser method?",
+      "revId": "d2daf50a7200bd1aed6e77da62e9ad3966d52fa2",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5674378b_92000ac9",
+        "filename": "manukaclient/v1/users.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2020-04-28T05:35:40Z",
+      "side": 1,
+      "message": "This is not a good name for this method.  \"os\" is ambiguous and too vague.",
+      "revId": "d2daf50a7200bd1aed6e77da62e9ad3966d52fa2",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
