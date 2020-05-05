@@ -67,7 +67,7 @@ class Manager(object):
         items = items + new_items
         if 'next' in body and body['next']:
             items = self._list(body['next'], response_key, obj_class, items,
-                               headers, None, limit)
+                               headers, params, limit)
 
         return ListWithMeta(items, resp)
 
@@ -90,8 +90,9 @@ class Manager(object):
         # PATCH requests may not return a body
         if body:
             if response_key:
-                return self.resource_class(self, body[response_key], resp=resp)
-            return self.resource_class(self, body, resp=resp)
+                return self.resource_class(self, body[response_key], resp=resp,
+                                           loaded=True)
+            return self.resource_class(self, body, resp=resp, loaded=True)
         else:
             return StrWithMeta(body, resp)
 
