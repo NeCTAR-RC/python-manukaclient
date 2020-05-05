@@ -51,7 +51,13 @@ generic_user = {
     "orcid": "sammmee",
     "state": "created",
     "last_login": "2020-04-23T10:23:20",
-    "terms_version": "v1"
+    "terms_version": "v1",
+    "external_ids": [
+        {
+            "last_login": "2020-04-23T10:23:20",
+            "idp": "https://idp/idp/shibboleth",
+        }
+    ],
 }
 
 
@@ -194,6 +200,9 @@ class FakeSessionClient(base_client.SessionClient):
         return (200, {}, users)
 
     def get_v1_users_123(self, **kw):
+        return (200, {}, generic_user)
+
+    def get_v1_users_os_123(self, **kw):
         return (200, {}, generic_user)
 
     def patch_v1_users_123(self, data, **kw):
