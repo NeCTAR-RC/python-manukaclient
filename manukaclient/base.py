@@ -67,7 +67,7 @@ class Manager(object):
         items = items + new_items
         if 'next' in body and body['next']:
             items = self._list(body['next'], response_key, obj_class, items,
-                               headers, None, limit)
+                               headers, params, limit)
 
         return ListWithMeta(items, resp)
 

@@ -16,14 +16,34 @@ import json
 from manukaclient import base
 
 
+class ExternalId(base.Resource):
+
+    def __str__(self):
+        return self.attributes.get('id')
+
+    def __repr__(self):
+        return "<ExternalId %s>" % self.attributes.get('id')
+
+
 class User(base.Resource):
-    pass
+    def __init__(self, manager, info, loaded=False, resp=None):
+        super().__init__(manager, info, loaded, resp)
+        raw_external_ids = getattr(self, 'external_ids', [])
+        self.external_ids = []
+        for eid in raw_external_ids:
+            self.external_ids.append(ExternalId(manager, eid))
 
 
 class UserManager(base.BasicManager):
 
     base_url = 'v1/users'
     resource_class = User
+
+    def __str__(self):
+        return self.id
+
+    def __repr__(self):
+        return "<User %s>" % self.id
 
     def update(self, user_id, **kwargs):
         data = json.dumps(kwargs)
