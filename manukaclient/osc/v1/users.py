@@ -29,7 +29,7 @@ class ListUsers(command.Lister):
         self.log.debug('take_action(%s)', parsed_args)
         client = self.app.client_manager.account
         users = client.users.list()
-        columns = ['id', 'user_id', 'email']
+        columns = ['id', 'displayname', 'email']
         return (
             columns,
             (osc_utils.get_item_properties(q, columns) for q in users)
@@ -54,7 +54,7 @@ class SearchUsers(command.Lister):
         self.log.debug('take_action(%s)', parsed_args)
         client = self.app.client_manager.account
         users = client.users.search(parsed_args.query)
-        columns = ['id', 'user_id', 'email']
+        columns = ['id', 'displayname', 'email']
         return (
             columns,
             (osc_utils.get_item_properties(q, columns) for q in users)
