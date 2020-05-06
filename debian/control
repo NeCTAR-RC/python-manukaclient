@@ -21,6 +21,14 @@ Build-Depends-Indep:
 Standards-Version: 4.1.3
 Homepage: https://github.com/NeCTAR-RC/python-manukaclient
 
+Package: python-manukaclient
+Section: python
+Architecture: all
+Depends:
+ ${misc:Depends},
+ ${python:Depends},
+Description: Manuka python client
+
 Package: python3-manukaclient
 Section: python
 Architecture: all
