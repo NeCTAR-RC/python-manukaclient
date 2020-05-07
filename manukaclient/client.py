@@ -10,9 +10,9 @@
 #   License for the specific language governing permissions and limitations
 #   under the License.
 #
-
 from keystoneauth1 import adapter
 from oslo_utils import importutils
+import pkg_resources
 
 from manukaclient import exceptions
 
@@ -27,7 +27,7 @@ def Client(version, *args, **kwargs):
 class SessionClient(adapter.Adapter):
 
     client_name = 'python-manukaclient'
-    client_version = '0.4.0'
+    client_version = pkg_resources.require("manukaclient")[0].version
 
     def request(self, url, method, **kwargs):
         project_id = self.get_project_id()
