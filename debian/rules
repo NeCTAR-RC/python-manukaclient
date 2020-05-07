@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-export PYBUILD_NAME=nectarallocationclient
+export PYBUILD_NAME=manukaclient
 
 # main packaging script based on dh7 syntax
 %:
