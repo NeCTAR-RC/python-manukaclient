@@ -58,3 +58,27 @@ class UsersTest(utils.TestCase):
         self.cs.assert_called('POST', '/v1/users/search/', {'search': query})
         for u in ul:
             self.assertIsInstance(u, users.User)
+
+
+class PendingUsersTest(utils.TestCase):
+
+    def setUp(self):
+        super(PendingUsersTest, self).setUp()
+        self.cs = fakes.FakeClient()
+
+    def test_user_list(self):
+        ul = self.cs.pending_users.list()
+        self.cs.assert_called('GET', '/v1/pending-users/')
+        for u in ul:
+            self.assertIsInstance(u, users.User)
+        self.assertEqual(3, len(ul))
+
+    def test_user_get(self):
+        u = self.cs.pending_users.get(123)
+        self.cs.assert_called('GET', '/v1/pending-users/123/')
+        self.assertIsInstance(u, users.User)
+        self.assertEqual(123, u.id)
+
+    def test_user_delete(self):
+        self.cs.pending_users.delete(123)
+        self.cs.assert_called('DELETE', '/v1/pending-users/123/')

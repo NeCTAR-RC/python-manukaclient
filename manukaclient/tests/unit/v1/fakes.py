@@ -19,6 +19,7 @@ from manukaclient import client as base_client
 from manukaclient.tests.unit import fakes
 from manukaclient.tests.unit import utils
 from manukaclient.v1 import client
+from manukaclient.v1 import external_ids
 from manukaclient.v1 import users
 
 
@@ -54,6 +55,7 @@ generic_user = {
     "terms_version": "v1",
     "external_ids": [
         {
+            "id": "1233",
             "last_login": "2020-04-23T10:23:20",
             "idp": "https://idp/idp/shibboleth",
         }
@@ -67,6 +69,8 @@ class FakeClient(fakes.FakeClient, client.Client):
         client.Client.__init__(self, session=mock.Mock())
         self.http_client = FakeSessionClient(**kwargs)
         self.users = users.UserManager(self.http_client)
+        self.pending_users = users.PendingUserManager(self.http_client)
+        self.external_ids = external_ids.ExternalIdManager(self.http_client)
 
 
 class FakeSessionClient(base_client.SessionClient):
@@ -289,3 +293,82 @@ class FakeSessionClient(base_client.SessionClient):
         ]
 
         return (200, data, users)
+
+    def get_v1_pending_users(self, **kw):
+        users = [
+            {
+                "first_name": "uEelNrtNg3SPzh50nol5",
+                "affiliation": "staff",
+                "id": 123,
+                "home_organization": "saDjCIriNGoJKqUI4piX",
+                "mobile_number": "6Q1llL0jyOhNdyBAX0XO",
+                "terms_accepted_at": "2015-10-21T15:18:40",
+                "surname": "OIEBQswE3tNh89N5OTsW",
+                "user_id": "d1fa8867e42444cf8724e65fef1da549",
+                "phone_number": "33443322",
+                "displayname": "lyWtLuxXWxku24cbhgjT",
+                "registered_at": "2015-10-21T15:18:40",
+                "email": "fmklmf4ikmlf34mnm",
+                "ignore_username_not_email": False,
+                "orcid": "sammmee",
+                "state": "created",
+                "last_login": "2020-04-23T10:23:20",
+                "terms_version": "v1"
+            },
+            {
+                "first_name": "uEelNrtNg3SPzh50nol5",
+                "affiliation": "staff",
+                "id": 124,
+                "home_organization": "saDjCIriNGoJKqUI4piX",
+                "mobile_number": "6Q1llL0jyOhNdyBAX0XO",
+                "terms_accepted_at": "2015-10-21T15:18:40",
+                "surname": "OIEBQswE3tNh89N5OTsW",
+                "user_id": "d1fa8867e42444cf8724e65fef1da549",
+                "phone_number": "33443322",
+                "displayname": "lyWtLuxXWxku24cbhgjT",
+                "registered_at": "2015-10-21T15:18:40",
+                "email": "fmklmf4ikmlf34mnm",
+                "ignore_username_not_email": False,
+                "orcid": "sammmee",
+                "state": "created",
+                "last_login": "2020-04-23T10:23:20",
+                "terms_version": "v1"
+            },
+            {
+                "first_name": "uEelNrtNg3SPzh50nol5",
+                "affiliation": "staff",
+                "id": 125,
+                "home_organization": "saDjCIriNGoJKqUI4piX",
+                "mobile_number": "6Q1llL0jyOhNdyBAX0XO",
+                "terms_accepted_at": "2015-10-21T15:18:40",
+                "surname": "OIEBQswE3tNh89N5OTsW",
+                "user_id": "d1fa8867e42444cf8724e65fef1da549",
+                "phone_number": "33443322",
+                "displayname": "lyWtLuxXWxku24cbhgjT",
+                "registered_at": "2015-10-21T15:18:40",
+                "email": "fmklmf4ikmlf34mnm",
+                "ignore_username_not_email": False,
+                "orcid": "sammmee",
+                "state": "created",
+                "last_login": "2020-04-23T10:23:20",
+                "terms_version": "v1"
+            }
+        ]
+        return (200, {}, users)
+
+    def delete_v1_pending_users_123(self, **kw):
+        return (204, {}, {})
+
+    def get_v1_pending_users_123(self, **kw):
+        return (200, {}, generic_user)
+
+    def delete_v1_external_ids_123(self, **kw):
+        return (204, {}, {})
+
+    def patch_v1_external_ids_123(self, data, **kw):
+        return (202, {'user_id': '234'},
+                {
+                    "id": "134",
+                    "last_login": "2020-04-23T10:23:20",
+                    "idp": "F72fIjesixhkTUSzMxdF"
+                })
