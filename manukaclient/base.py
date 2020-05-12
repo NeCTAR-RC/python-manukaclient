@@ -75,8 +75,9 @@ class Manager(object):
         if headers is None:
             headers = {}
         resp, body = self.api.delete(url, headers=headers)
-
-        return self.convert_into_with_meta(body, resp)
+        if body and body != '{}':
+            return self.convert_into_with_meta(body, resp)
+        return {}
 
     def _update(self, url, data, response_key=None, return_raw=False,
                 headers=None):
