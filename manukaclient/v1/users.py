@@ -14,12 +14,7 @@
 import json
 
 from manukaclient import base
-
-
-class ExternalId(base.Resource):
-
-    def __repr__(self):
-        return "<ExternalId %s>" % self.attributes.get('id')
+from manukaclient.v1 import external_ids
 
 
 class User(base.Resource):
@@ -29,16 +24,16 @@ class User(base.Resource):
         raw_external_ids = getattr(self, 'external_ids', [])
         self.external_ids = []
         for eid in raw_external_ids:
-            self.external_ids.append(ExternalId(manager, eid))
+            self.external_ids.append(external_ids.ExternalId(manager, eid))
+
+    def __repr__(self):
+        return "<User %s>" % self.id
 
 
 class UserManager(base.BasicManager):
 
     base_url = 'v1/users'
     resource_class = User
-
-    def __repr__(self):
-        return "<User %s>" % self.id
 
     def update(self, user_id, **kwargs):
         data = json.dumps(kwargs)
@@ -51,3 +46,11 @@ class UserManager(base.BasicManager):
     def search(self, query):
         return self._search('/%s/search/' % self.base_url,
                             data={'search': query})
+
+
+class PendingUserManager(UserManager):
+
+    base_url = 'v1/pending-users'
+
+    def delete(self, user_id):
+        return self._delete('/%s/%s/' % (self.base_url, user_id))

@@ -13,6 +13,7 @@
 
 from manukaclient import client
 from manukaclient import exceptions
+from manukaclient.v1 import external_ids
 from manukaclient.v1 import users
 
 
@@ -29,4 +30,6 @@ class Client(object):
                 message='Session is required argument')
         self.http_client = client.SessionClient(
             session, service_type=service_type, **kwargs)
+        self.external_ids = external_ids.ExternalIdManager(self.http_client)
+        self.pending_users = users.PendingUserManager(self.http_client)
         self.users = users.UserManager(self.http_client)

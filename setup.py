@@ -13,6 +13,11 @@ entry_points = {
         'account user search = manukaclient.osc.v1.users:SearchUsers',
         'account user show = manukaclient.osc.v1.users:ShowUser',
         'account user set = manukaclient.osc.v1.users:UpdateUser',
+        'account pending-user show = manukaclient.osc.v1.users:ShowPendingUser',
+        'account pending-user list = manukaclient.osc.v1.users:ListPendingUsers',
+        'account pending-user delete = manukaclient.osc.v1.users:DeletePendingUser',
+        'account external-id set = manukaclient.osc.v1.external_ids:UpdateExternalId',
+        'account external-id delete = manukaclient.osc.v1.external_ids:DeleteExternalId',
     ]
 }
 
