@@ -12,7 +12,6 @@
 #
 from keystoneauth1 import adapter
 from oslo_utils import importutils
-import pkg_resources
 
 from manukaclient import exceptions
 
@@ -27,7 +26,7 @@ def Client(version, *args, **kwargs):
 class SessionClient(adapter.Adapter):
 
     client_name = 'python-manukaclient'
-    client_version = pkg_resources.require("manukaclient")[0].version
+    client_version = '0.5.0'
 
     def request(self, url, method, **kwargs):
         project_id = self.get_project_id()
