@@ -13,11 +13,15 @@
 
 import abc
 import copy
+from datetime import datetime
 
 from requests import Response
 import six
 
 from manukaclient import exceptions
+
+
+DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
 
 
 def getid(obj):
@@ -300,11 +304,19 @@ class Resource(RequestIdMixin):
 
     def _add_details(self, info):
         for (k, v) in six.iteritems(info):
+            if k in self.date_fields:
+                try:
+                    setattr(self, k, datetime.strptime(v, DATE_FORMAT))
+                    continue
+                except Exception:
+                    # Couldn't pasrse date, fallback to string
+                    pass
             try:
                 setattr(self, k, v)
                 self._info[k] = v
             except AttributeError:
-                # In this case we already defined the attribute on the class
+                # In this case we already defined the attribute
+                # on the class
                 pass
 
     def __setstate__(self, d):

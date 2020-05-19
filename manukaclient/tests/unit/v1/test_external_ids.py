@@ -11,6 +11,7 @@
 #   under the License.
 #
 
+import datetime
 import json
 
 from manukaclient.v1 import external_ids
@@ -31,6 +32,7 @@ class ExternalIdsTest(utils.TestCase):
         self.cs.assert_called('PATCH', '/v1/external-ids/123/',
                               json.dumps({'user_id': new_user_id}))
         self.assertIsInstance(e, external_ids.ExternalId)
+        self.assertIsInstance(e.last_login, datetime.datetime)
 
     def test_delete(self):
         self.cs.external_ids.delete(123)

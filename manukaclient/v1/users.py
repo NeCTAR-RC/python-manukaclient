@@ -19,6 +19,8 @@ from manukaclient.v1 import external_ids
 
 class User(base.Resource):
 
+    date_fields = ['registered_at', 'terms_accepted_at', 'last_login']
+
     def __init__(self, manager, info, loaded=False, resp=None):
         super(User, self).__init__(manager, info, loaded, resp)
         raw_external_ids = getattr(self, 'external_ids', [])
