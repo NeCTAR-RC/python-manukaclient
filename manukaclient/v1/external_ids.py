@@ -18,6 +18,8 @@ from manukaclient import base
 
 class ExternalId(base.Resource):
 
+    date_fields = ['last_login']
+
     def __repr__(self):
         return "<ExternalId %s>" % self.attributes.get('id')
 

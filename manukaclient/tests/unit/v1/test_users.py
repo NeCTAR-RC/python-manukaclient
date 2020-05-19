@@ -11,6 +11,7 @@
 #   under the License.
 #
 
+import datetime
 import json
 
 from manukaclient.v1 import users
@@ -37,6 +38,8 @@ class UsersTest(utils.TestCase):
         self.cs.assert_called('GET', '/v1/users/123/')
         self.assertIsInstance(u, users.User)
         self.assertEqual(123, u.id)
+        self.assertIsInstance(u.registered_at, datetime.datetime)
+        self.assertIsInstance(u.terms_accepted_at, datetime.datetime)
 
     def test_user_get_by_os(self):
         u = self.cs.users.get_by_os(123)
