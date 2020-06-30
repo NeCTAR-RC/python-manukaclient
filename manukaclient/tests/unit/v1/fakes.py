@@ -231,6 +231,12 @@ class FakeSessionClient(base_client.SessionClient):
                 "terms_version": "v1"
             })
 
+    def post_v1_users_123_refresh_orcid(self, data, **kw):
+        return (200, {}, generic_user)
+
+    def get_v1_users_123_tm_projects(self, **kw):
+        return (200, {}, ['01234567890123456789', '98765432109876543210'])
+
     def post_v1_users_search(self, data, **kw):
         users = [
             {
