@@ -41,6 +41,21 @@ class UsersTest(utils.TestCase):
         self.assertIsInstance(u.registered_at, datetime.datetime)
         self.assertIsInstance(u.terms_accepted_at, datetime.datetime)
 
+    def test_user_refresh_orcid(self):
+        u = self.cs.users.refresh_orcid(123)
+        self.cs.assert_called('POST', '/v1/users/123/refresh-orcid/')
+        self.assertIsInstance(u, users.User)
+        self.assertEqual(123, u.id)
+        self.assertIsInstance(u.registered_at, datetime.datetime)
+        self.assertIsInstance(u.terms_accepted_at, datetime.datetime)
+
+    def test_user_projects(self):
+        r = self.cs.users.projects(123, 3456)
+        self.cs.assert_called('GET', '/v1/users/123/projects/3456/')
+        self.assertEqual(2, len(r))
+        self.assertEqual('01234567890123456789', r[0])
+        self.assertEqual('98765432109876543210', r[1])
+
     def test_user_get_by_os(self):
         u = self.cs.users.get_by_os(123)
         self.cs.assert_called('GET', '/v1/users-os/123/')
