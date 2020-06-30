@@ -231,6 +231,28 @@ class FakeSessionClient(base_client.SessionClient):
                 "terms_version": "v1"
             })
 
+    def post_v1_users_123_refresh_orcid(self, data, **kw):
+        return (202, {'orcid': 'new-orcid'},
+            {
+                "first_name": "uEelNrtNg3SPzh50nol5",
+                "affiliation": "staff",
+                "id": 123,
+                "home_organization": "saDjCIriNGoJKqUI4piX",
+                "mobile_number": "6Q1llL0jyOhNdyBAX0XO",
+                "terms_accepted_at": "2015-10-21T15:18:40",
+                "surname": "OIEBQswE3tNh89N5OTsW",
+                "user_id": "d1fa8867e42444cf8724e65fef1da549",
+                "phone_number": "33443322",
+                "displayname": "lyWtLuxXWxku24cbhgjT",
+                "registered_at": "2015-10-21T15:18:40",
+                "email": "fmklmf4ikmlf34mnm",
+                "ignore_username_not_email": False,
+                "orcid": "another-orcid",
+                "state": "created",
+                "last_login": "2020-04-23T10:23:20",
+                "terms_version": "v1"
+            })
+
     def post_v1_users_search(self, data, **kw):
         users = [
             {
