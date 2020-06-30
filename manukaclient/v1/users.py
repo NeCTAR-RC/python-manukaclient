@@ -42,6 +42,15 @@ class UserManager(base.BasicManager):
         return self._update('/%s/%s/' % (self.base_url, user_id), data=data,
                             headers={"content-type": "application/json"})
 
+    def refresh_orcid(self, user_id):
+        return self._post('/%s/%s/refresh-orcid/' % (self.base_url, user_id),
+                          data={})
+
+    def projects(self, user_id, role_name):
+        return self._get('/%s/%s/projects/%s/' %
+                         (self.base_url, user_id, role_name),
+                         return_raw=True)
+
     def get_by_os(self, user_id):
         return self._get('/v1/users-os/%s/' % user_id)
 
