@@ -149,6 +149,24 @@ class Manager(object):
                                        resp=resp)
         return self.resource_class(self, body, loaded=True, resp=resp)
 
+    def _post(self, url, data, response_key=None, return_raw=False,
+              headers=None):
+        if headers is None:
+            headers = {}
+        resp, body = self.api.post(url, data=data, headers=headers)
+        if return_raw:
+            if response_key:
+                body = body[response_key]
+            return self.convert_into_with_meta(body, resp)
+        # POST requests may not return a body
+        if body:
+            if response_key:
+                return self.resource_class(self, body[response_key], resp=resp,
+                                           loaded=True)
+            return self.resource_class(self, body, resp=resp, loaded=True)
+        else:
+            return StrWithMeta(body, resp)
+
     def _search(self, url, data, response_key='results', obj_class=None,
               items=None, headers=None, limit=None):
 

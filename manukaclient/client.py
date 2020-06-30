@@ -26,7 +26,7 @@ def Client(version, *args, **kwargs):
 class SessionClient(adapter.Adapter):
 
     client_name = 'python-manukaclient'
-    client_version = '0.6.0'
+    client_version = '0.7.0'
 
     def request(self, url, method, **kwargs):
         project_id = self.get_project_id()
