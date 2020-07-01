@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "017e48c3_905b14f7",
+        "filename": "manukaclient/v1/users.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-01T01:20:03Z",
+      "side": 1,
+      "message": "see comment on server side",
+      "revId": "b0a48b0e8479c9257b04d75966b81f82da3e539a",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
