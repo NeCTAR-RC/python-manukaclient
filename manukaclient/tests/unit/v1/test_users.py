@@ -56,12 +56,6 @@ class UsersTest(utils.TestCase):
         self.assertEqual('01234567890123456789', r[0])
         self.assertEqual('98765432109876543210', r[1])
 
-    def test_user_get_by_os(self):
-        u = self.cs.users.get_by_os(123)
-        self.cs.assert_called('GET', '/v1/users-os/123/')
-        self.assertIsInstance(u, users.User)
-        self.assertEqual(123, u.id)
-
     def test_update(self):
         new_orcid = 'new-orcid'
         u = self.cs.users.update(123, orcid=new_orcid)

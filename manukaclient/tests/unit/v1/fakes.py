@@ -206,9 +206,6 @@ class FakeSessionClient(base_client.SessionClient):
     def get_v1_users_123(self, **kw):
         return (200, {}, generic_user)
 
-    def get_v1_users_os_123(self, **kw):
-        return (200, {}, generic_user)
-
     def patch_v1_users_123(self, data, **kw):
         return (202, {'orcid': 'new-orcid'},
             {
