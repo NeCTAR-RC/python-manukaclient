@@ -51,9 +51,6 @@ class UserManager(base.BasicManager):
                          (self.base_url, user_id, role_name),
                          return_raw=True)
 
-    def get_by_os(self, user_id):
-        return self._get('/v1/users-os/%s/' % user_id)
-
     def search(self, query):
         return self._search('/%s/search/' % self.base_url,
                             data={'search': query})

@@ -24,7 +24,7 @@ entry_points = {
 
 setuptools.setup(
     name='manukaclient',
-    version='0.7.0',
+    version='0.7.1',
     description=('Client for the Nectar Account system'),
     author='Sam Morrison',
     author_email='sorrison@gmail.com',
