@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce63b890_7871203b",
+        "filename": "setup.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-07-06T07:34:08Z",
+      "side": 1,
+      "message": "I\u0027d prob make this 0.8.0 as it\u0027s more of a bigger change since functionality is being removed but it\u0027s no big deal",
+      "range": {
+        "startLine": 27,
+        "startChar": 14,
+        "endLine": 27,
+        "endChar": 18
+      },
+      "revId": "643c534cc1b83805ce7fe83cae0a5eed0f37594c",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
