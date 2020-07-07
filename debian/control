@@ -9,18 +9,7 @@ Build-Depends:
  python3-all,
  python3-pip,
  python3-setuptools,
- python-all,
- python-pip,
- python-setuptools,
 Build-Depends-Indep:
- python-stestr,
- python-mock,
- python-testtools,
- python-requests-mock,
- python-fixtures,
- python-requests,
- python-keystoneauth1,
- python-osc-lib,
  python3-stestr,
  python3-mock,
  python3-testtools,
@@ -31,14 +20,6 @@ Build-Depends-Indep:
  python3-osc-lib,
 Standards-Version: 4.1.3
 Homepage: https://github.com/NeCTAR-RC/python-manukaclient
-
-Package: python-manukaclient
-Section: python
-Architecture: all
-Depends:
- ${misc:Depends},
- ${python:Depends},
-Description: Manuka python client
 
 Package: python3-manukaclient
 Section: python
