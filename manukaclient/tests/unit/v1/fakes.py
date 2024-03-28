@@ -20,6 +20,7 @@ from nectarclient_lib.tests.unit import utils
 from manukaclient import client as base_client
 from manukaclient.v1 import client
 from manukaclient.v1 import external_ids
+from manukaclient.v1 import keystone_ext
 from manukaclient.v1 import users
 
 
@@ -71,6 +72,7 @@ class FakeClient(fakes.FakeClient, client.Client):
         self.users = users.UserManager(self.http_client)
         self.pending_users = users.PendingUserManager(self.http_client)
         self.external_ids = external_ids.ExternalIdManager(self.http_client)
+        self.keystone_ext = keystone_ext.KeystoneExtManager(self.http_client)
 
 
 class FakeSessionClient(base_client.SessionClient):
@@ -375,3 +377,18 @@ class FakeSessionClient(base_client.SessionClient):
                     "last_login": "2020-04-23T10:23:20",
                     "idp": "F72fIjesixhkTUSzMxdF"
                 })
+
+    def get_v1_keystone_ext_user_by_name_bob(self, **kw):
+        ks_user = {'email': 'email@example.com',
+                   'full_name': 'displayName-lyWtLuxXWxku24cbhgjT',
+                   'inactive': False,
+                   'id': '123456789',
+                   'name': 'email@example.com',
+                   'domain_id': 'default',
+                   'enabled': True,
+                   'default_project_id': '987654321',
+                   'password_expires_at': None,
+                   'options': {},
+                   'links': {'self': 'http://keystone:5000/v3/users/123456789'}
+                   }
+        return (200, {}, ks_user)

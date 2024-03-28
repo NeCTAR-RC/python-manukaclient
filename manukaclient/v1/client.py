@@ -15,6 +15,7 @@ from nectarclient_lib import exceptions
 
 from manukaclient import client
 from manukaclient.v1 import external_ids
+from manukaclient.v1 import keystone_ext
 from manukaclient.v1 import users
 
 
@@ -32,5 +33,7 @@ class Client(object):
         self.http_client = client.SessionClient(
             session, service_type=service_type, **kwargs)
         self.external_ids = external_ids.ExternalIdManager(self.http_client)
+        self.keystone_ext = keystone_ext.KeystoneExtManager(
+            self.http_client)
         self.pending_users = users.PendingUserManager(self.http_client)
         self.users = users.UserManager(self.http_client)
