@@ -24,7 +24,7 @@ entry_points = {
 
 setuptools.setup(
     name='manukaclient',
-    version='0.7.1',
+    version='1.0.0',
     description=('Client for the Nectar Account system'),
     author='Sam Morrison',
     author_email='sorrison@gmail.com',
@@ -39,7 +39,6 @@ setuptools.setup(
     zip_safe=False,
     classifiers=(
         'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
     ),

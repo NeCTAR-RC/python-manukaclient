@@ -14,10 +14,10 @@
 import datetime
 import json
 
-from manukaclient.v1 import users
+from nectarclient_lib.tests.unit import utils
 
-from manukaclient.tests.unit import utils
 from manukaclient.tests.unit.v1 import fakes
+from manukaclient.v1 import users
 
 
 class UsersTest(utils.TestCase):
@@ -67,7 +67,8 @@ class UsersTest(utils.TestCase):
     def test_search(self):
         query = 'needle'
         ul = self.cs.users.search(query)
-        self.cs.assert_called('POST', '/v1/users/search/', {'search': query})
+        self.cs.assert_called('POST', '/v1/users/search/',
+                              json.dumps({'search': query}))
         for u in ul:
             self.assertIsInstance(u, users.User)
 

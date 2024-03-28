@@ -11,9 +11,7 @@
 #   under the License.
 #
 
-import json
-
-from manukaclient import base
+from nectarclient_lib import base
 
 
 class ExternalId(base.Resource):
@@ -21,7 +19,7 @@ class ExternalId(base.Resource):
     date_fields = ['last_login']
 
     def __repr__(self):
-        return "<ExternalId %s>" % self.attributes.get('id')
+        return "<ExternalId %s>" % self.id
 
 
 class ExternalIdManager(base.Manager):
@@ -30,10 +28,8 @@ class ExternalIdManager(base.Manager):
     resource_class = ExternalId
 
     def update(self, external_id, **kwargs):
-        data = json.dumps(kwargs)
         return self._update('/%s/%s/' % (self.base_url, external_id),
-                            data=data,
-                            headers={"content-type": "application/json"})
+                            data=kwargs)
 
     def delete(self, external_id):
         return self._delete('/%s/%s/' % (self.base_url, external_id))

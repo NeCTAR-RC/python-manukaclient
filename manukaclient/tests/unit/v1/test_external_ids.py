@@ -14,10 +14,10 @@
 import datetime
 import json
 
-from manukaclient.v1 import external_ids
+from nectarclient_lib.tests.unit import utils
 
-from manukaclient.tests.unit import utils
 from manukaclient.tests.unit.v1 import fakes
+from manukaclient.v1 import external_ids
 
 
 class ExternalIdsTest(utils.TestCase):

@@ -13,9 +13,8 @@
 
 import logging
 
+from nectarclient_lib import exceptions
 from osc_lib.command import command
-
-from manukaclient import exceptions
 
 
 class ExternalIdCommand(command.ShowOne):

@@ -11,13 +11,13 @@
 #    under the License.
 
 import re
+from unittest import mock
+from urllib import parse
 
-import mock
-from six.moves.urllib import parse
+from nectarclient_lib.tests.unit import fakes
+from nectarclient_lib.tests.unit import utils
 
 from manukaclient import client as base_client
-from manukaclient.tests.unit import fakes
-from manukaclient.tests.unit import utils
 from manukaclient.v1 import client
 from manukaclient.v1 import external_ids
 from manukaclient.v1 import users
@@ -55,7 +55,7 @@ generic_user = {
     "terms_version": "v1",
     "external_ids": [
         {
-            "id": "1233",
+            "id": 1233,
             "last_login": "2020-04-23T10:23:20",
             "idp": "https://idp/idp/shibboleth",
         }
@@ -295,7 +295,7 @@ class FakeSessionClient(base_client.SessionClient):
             }
         ]
 
-        return (200, data, users)
+        return (200, {}, users)
 
     def get_v1_pending_users(self, **kw):
         users = [
@@ -369,9 +369,9 @@ class FakeSessionClient(base_client.SessionClient):
         return (204, {}, {})
 
     def patch_v1_external_ids_123(self, data, **kw):
-        return (202, {'user_id': '234'},
+        return (202, {},
                 {
-                    "id": "134",
+                    "id": 134,
                     "last_login": "2020-04-23T10:23:20",
                     "idp": "F72fIjesixhkTUSzMxdF"
                 })

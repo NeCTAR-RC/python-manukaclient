@@ -11,8 +11,9 @@
 #   under the License.
 #
 
+from nectarclient_lib import exceptions
+
 from manukaclient import client
-from manukaclient import exceptions
 from manukaclient.v1 import external_ids
 from manukaclient.v1 import users
 

@@ -11,9 +11,8 @@
 #   under the License.
 #
 
-import json
+from nectarclient_lib import base
 
-from manukaclient import base
 from manukaclient.v1 import external_ids
 
 
@@ -38,9 +37,7 @@ class UserManager(base.BasicManager):
     resource_class = User
 
     def update(self, user_id, **kwargs):
-        data = json.dumps(kwargs)
-        return self._update('/%s/%s/' % (self.base_url, user_id), data=data,
-                            headers={"content-type": "application/json"})
+        return self._update('/%s/%s/' % (self.base_url, user_id), data=kwargs)
 
     def refresh_orcid(self, user_id):
         return self._post('/%s/%s/refresh-orcid/' % (self.base_url, user_id),
