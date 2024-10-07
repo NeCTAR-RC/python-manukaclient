@@ -1,16 +1,16 @@
 Source: manukaclient
-Section: net
+Section: unknown
 Priority: optional
 Maintainer: Sam Morrison <sorrison@gmail.com>
 Build-Depends:
- debhelper (>= 10),
+ debhelper-compat (= 12),
  dh-python,
- po-debconf,
- python3-all,
- python3-pip,
+ openstack-pkg-tools,
+ python3-all (>=3.2),
+ python3-pbr,
  python3-setuptools,
+ python3-sphinx,
 Build-Depends-Indep:
- python3-stestr,
  python3-mock,
  python3-testtools,
  python3-requests-mock,
@@ -20,13 +20,15 @@ Build-Depends-Indep:
  python3-keystoneauth1,
  python3-keystoneclient,
  python3-osc-lib,
-Standards-Version: 4.1.3
+ python3-nectarclient-lib,
+ python3-stestr (>= 2.0.0),
+ python3-subunit (>= 1.0.0),
+ subunit,
+Standards-Version: 4.6.1
 Homepage: https://github.com/NeCTAR-RC/python-manukaclient
+Testsuite: autopkgtest-pkg-python
 
 Package: python3-manukaclient
-Section: python
-Architecture: all
-Depends:
- ${misc:Depends},
- ${python3:Depends},
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
 Description: Manuka python client
