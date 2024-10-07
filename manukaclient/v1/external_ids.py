@@ -15,21 +15,18 @@ from nectarclient_lib import base
 
 
 class ExternalId(base.Resource):
-
     date_fields = ['last_login']
 
     def __repr__(self):
-        return "<ExternalId %s>" % self.id
+        return f"<ExternalId {self.id}>"
 
 
 class ExternalIdManager(base.Manager):
-
     base_url = 'v1/external-ids'
     resource_class = ExternalId
 
     def update(self, external_id, **kwargs):
-        return self._update('/%s/%s/' % (self.base_url, external_id),
-                            data=kwargs)
+        return self._update(f'/{self.base_url}/{external_id}/', data=kwargs)
 
     def delete(self, external_id):
-        return self._delete('/%s/%s/' % (self.base_url, external_id))
+        return self._delete(f'/{self.base_url}/{external_id}/')

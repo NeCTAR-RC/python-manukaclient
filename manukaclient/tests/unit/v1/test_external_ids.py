@@ -21,16 +21,18 @@ from manukaclient.v1 import external_ids
 
 
 class ExternalIdsTest(utils.TestCase):
-
     def setUp(self):
-        super(ExternalIdsTest, self).setUp()
+        super().setUp()
         self.cs = fakes.FakeClient()
 
     def test_update(self):
         new_user_id = '234'
         e = self.cs.external_ids.update(123, user_id=new_user_id)
-        self.cs.assert_called('PATCH', '/v1/external-ids/123/',
-                              json.dumps({'user_id': new_user_id}))
+        self.cs.assert_called(
+            'PATCH',
+            '/v1/external-ids/123/',
+            json.dumps({'user_id': new_user_id}),
+        )
         self.assertIsInstance(e, external_ids.ExternalId)
         self.assertIsInstance(e.last_login, datetime.datetime)
 

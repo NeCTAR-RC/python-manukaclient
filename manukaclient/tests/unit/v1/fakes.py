@@ -27,8 +27,7 @@ from manukaclient.v1 import users
 # regex to compare callback to result of get_endpoint()
 # checks version number (vX or vX.X where X is a number)
 # and also checks if the id is on the end
-ENDPOINT_RE = re.compile(
-    r"^get_http:__manuka_api:8774_v\d(_\d)?_\w{32}$")
+ENDPOINT_RE = re.compile(r"^get_http:__manuka_api:8774_v\d(_\d)?_\w{32}$")
 
 # accepts formats like v2 or v2.1
 ENDPOINT_TYPE_RE = re.compile(r"^v\d(\.\d)?$")
@@ -65,7 +64,6 @@ generic_user = {
 
 
 class FakeClient(fakes.FakeClient, client.Client):
-
     def __init__(self, *args, **kwargs):
         client.Client.__init__(self, session=mock.Mock())
         self.http_client = FakeSessionClient(**kwargs)
@@ -76,9 +74,7 @@ class FakeClient(fakes.FakeClient, client.Client):
 
 
 class FakeSessionClient(base_client.SessionClient):
-
     def __init__(self, *args, **kwargs):
-
         self.callstack = []
         self.visited = []
         self.auth = mock.Mock()
@@ -122,25 +118,29 @@ class FakeSessionClient(base_client.SessionClient):
             munged_url = munged_url.replace('@', '_')
             munged_url = munged_url.replace('%20', '_')
             munged_url = munged_url.replace('%3A', '_')
-            callback = "%s_%s" % (method.lower(), munged_url)
+            callback = f"{method.lower()}_{munged_url}"
 
         if not hasattr(self, callback):
-            raise AssertionError('Called unknown API method: %s %s, '
-                                 'expected fakes method name: %s' %
-                                 (method, url, callback))
+            raise AssertionError(
+                f'Called unknown API method: {method} {url}, '
+                f'expected fakes method name: {callback}'
+            )
 
         # Note the call
         self.visited.append(callback)
-        self.callstack.append((method, url, kwargs.get('data'),
-                               kwargs.get('params')))
+        self.callstack.append(
+            (method, url, kwargs.get('data'), kwargs.get('params'))
+        )
 
         status, headers, data = getattr(self, callback)(**kwargs)
 
-        r = utils.TestResponse({
-            "status_code": status,
-            "text": data,
-            "headers": headers,
-        })
+        r = utils.TestResponse(
+            {
+                "status_code": status,
+                "text": data,
+                "headers": headers,
+            }
+        )
         return r, data
 
     def get_v1_users(self, **kw):
@@ -162,7 +162,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -181,7 +181,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -200,8 +200,8 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
-            }
+                "terms_version": "v1",
+            },
         ]
         return (200, {}, users)
 
@@ -209,7 +209,9 @@ class FakeSessionClient(base_client.SessionClient):
         return (200, {}, generic_user)
 
     def patch_v1_users_123(self, data, **kw):
-        return (202, {'orcid': 'new-orcid'},
+        return (
+            202,
+            {'orcid': 'new-orcid'},
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
                 "affiliation": "staff",
@@ -227,8 +229,9 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "new-orcid",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
-            })
+                "terms_version": "v1",
+            },
+        )
 
     def post_v1_users_123_refresh_orcid(self, data, **kw):
         return (200, {}, generic_user)
@@ -255,7 +258,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -274,7 +277,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -293,8 +296,8 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
-            }
+                "terms_version": "v1",
+            },
         ]
 
         return (200, {}, users)
@@ -318,7 +321,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -337,7 +340,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
+                "terms_version": "v1",
             },
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
@@ -356,8 +359,8 @@ class FakeSessionClient(base_client.SessionClient):
                 "orcid": "sammmee",
                 "state": "created",
                 "last_login": "2020-04-23T10:23:20",
-                "terms_version": "v1"
-            }
+                "terms_version": "v1",
+            },
         ]
         return (200, {}, users)
 
@@ -371,24 +374,28 @@ class FakeSessionClient(base_client.SessionClient):
         return (204, {}, {})
 
     def patch_v1_external_ids_123(self, data, **kw):
-        return (202, {},
-                {
-                    "id": 134,
-                    "last_login": "2020-04-23T10:23:20",
-                    "idp": "F72fIjesixhkTUSzMxdF"
-                })
+        return (
+            202,
+            {},
+            {
+                "id": 134,
+                "last_login": "2020-04-23T10:23:20",
+                "idp": "F72fIjesixhkTUSzMxdF",
+            },
+        )
 
     def get_v1_keystone_ext_user_by_name_bob(self, **kw):
-        ks_user = {'email': 'email@example.com',
-                   'full_name': 'displayName-lyWtLuxXWxku24cbhgjT',
-                   'inactive': False,
-                   'id': '123456789',
-                   'name': 'email@example.com',
-                   'domain_id': 'default',
-                   'enabled': True,
-                   'default_project_id': '987654321',
-                   'password_expires_at': None,
-                   'options': {},
-                   'links': {'self': 'http://keystone:5000/v3/users/123456789'}
-                   }
+        ks_user = {
+            'email': 'email@example.com',
+            'full_name': 'displayName-lyWtLuxXWxku24cbhgjT',
+            'inactive': False,
+            'id': '123456789',
+            'name': 'email@example.com',
+            'domain_id': 'default',
+            'enabled': True,
+            'default_project_id': '987654321',
+            'password_expires_at': None,
+            'options': {},
+            'links': {'self': 'http://keystone:5000/v3/users/123456789'},
+        }
         return (200, {}, ks_user)

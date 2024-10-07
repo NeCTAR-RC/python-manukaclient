@@ -30,7 +30,7 @@ class ListUsers(command.Lister):
         columns = ['id', 'displayname', 'email']
         return (
             columns,
-            (osc_utils.get_item_properties(q, columns) for q in users)
+            (osc_utils.get_item_properties(q, columns) for q in users),
         )
 
 
@@ -40,12 +40,8 @@ class SearchUsers(command.Lister):
     log = logging.getLogger(__name__ + '.ListUsers')
 
     def get_parser(self, prog_name):
-        parser = super(SearchUsers, self).get_parser(prog_name)
-        parser.add_argument(
-            'query',
-            metavar='<query>',
-            help=('Search query')
-        )
+        parser = super().get_parser(prog_name)
+        parser.add_argument('query', metavar='<query>', help=('Search query'))
         return parser
 
     def take_action(self, parsed_args):
@@ -55,19 +51,14 @@ class SearchUsers(command.Lister):
         columns = ['id', 'displayname', 'email']
         return (
             columns,
-            (osc_utils.get_item_properties(q, columns) for q in users)
+            (osc_utils.get_item_properties(q, columns) for q in users),
         )
 
 
 class UserCommand(command.ShowOne):
-
     def get_parser(self, prog_name):
-        parser = super(UserCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar='<id>',
-            help=('ID of user')
-        )
+        parser = super().get_parser(prog_name)
+        parser.add_argument('id', metavar='<id>', help=('ID of user'))
         return parser
 
 
@@ -93,23 +84,19 @@ class UpdateUser(UserCommand):
     log = logging.getLogger(__name__ + '.UpdateUser')
 
     def get_parser(self, prog_name):
-        parser = super(UpdateUser, self).get_parser(prog_name)
+        parser = super().get_parser(prog_name)
+        parser.add_argument('--orcid', metavar='<orcid>', help=('ORCID'))
         parser.add_argument(
-            '--orcid',
-            metavar='<orcid>',
-            help=('ORCID'))
+            '--affiliation', metavar='<affiliation>', help=('Affiliation')
+        )
         parser.add_argument(
-            '--affiliation',
-            metavar='<affiliation>',
-            help=('Affiliation'))
-        parser.add_argument(
-            '--phone-number',
-            metavar='<phone_number>',
-            help=('phone number'))
+            '--phone-number', metavar='<phone_number>', help=('phone number')
+        )
         parser.add_argument(
             '--mobile-number',
             metavar='<mobile_number>',
-            help=('mobile number'))
+            help=('mobile number'),
+        )
         return parser
 
     def take_action(self, parsed_args):
@@ -121,8 +108,7 @@ class UpdateUser(UserCommand):
             raise exceptions.CommandError(str(ex))
 
         update = {}
-        for field in ['orcid', 'affiliation', 'phone_number',
-                      'mobile_number']:
+        for field in ['orcid', 'affiliation', 'phone_number', 'mobile_number']:
             if getattr(parsed_args, field):
                 update[field] = getattr(parsed_args, field)
 
@@ -142,7 +128,7 @@ class ListPendingUsers(command.Lister):
         columns = ['id', 'displayname', 'email']
         return (
             columns,
-            (osc_utils.get_item_properties(q, columns) for q in users)
+            (osc_utils.get_item_properties(q, columns) for q in users),
         )
 
 

@@ -16,13 +16,13 @@ from nectarclient_lib import base
 
 
 class KeystoneExtManager(base.BasicManager):
-
     base_url = 'v1/keystone-ext'
     resource_class = users.User
 
     def get_user_by_name(self, user_id):
         # Need to use raw here due to keystone base resource not
         # supporting the resp argument.
-        user_raw = self._get('/%s/user-by-name/%s/' % (self.base_url, user_id),
-                             return_raw=True)
+        user_raw = self._get(
+            f'/{self.base_url}/user-by-name/{user_id}/', return_raw=True
+        )
         return self.resource_class(self, user_raw, loaded=True)

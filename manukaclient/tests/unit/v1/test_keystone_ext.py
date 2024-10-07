@@ -18,7 +18,6 @@ from manukaclient.tests.unit.v1 import fakes
 
 
 class KeystoneTest(utils.TestCase):
-
     def setUp(self):
         super().setUp()
         self.cs = fakes.FakeClient()

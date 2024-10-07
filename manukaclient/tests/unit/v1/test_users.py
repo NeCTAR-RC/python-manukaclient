@@ -21,9 +21,8 @@ from manukaclient.v1 import users
 
 
 class UsersTest(utils.TestCase):
-
     def setUp(self):
-        super(UsersTest, self).setUp()
+        super().setUp()
         self.cs = fakes.FakeClient()
 
     def test_user_list(self):
@@ -59,24 +58,25 @@ class UsersTest(utils.TestCase):
     def test_update(self):
         new_orcid = 'new-orcid'
         u = self.cs.users.update(123, orcid=new_orcid)
-        self.cs.assert_called('PATCH', '/v1/users/123/',
-                              json.dumps({'orcid': new_orcid}))
+        self.cs.assert_called(
+            'PATCH', '/v1/users/123/', json.dumps({'orcid': new_orcid})
+        )
         self.assertIsInstance(u, users.User)
         self.assertEqual(new_orcid, u.orcid)
 
     def test_search(self):
         query = 'needle'
         ul = self.cs.users.search(query)
-        self.cs.assert_called('POST', '/v1/users/search/',
-                              json.dumps({'search': query}))
+        self.cs.assert_called(
+            'POST', '/v1/users/search/', json.dumps({'search': query})
+        )
         for u in ul:
             self.assertIsInstance(u, users.User)
 
 
 class PendingUsersTest(utils.TestCase):
-
     def setUp(self):
-        super(PendingUsersTest, self).setUp()
+        super().setUp()
         self.cs = fakes.FakeClient()
 
     def test_user_list(self):

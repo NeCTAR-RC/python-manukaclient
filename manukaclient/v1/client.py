@@ -19,7 +19,7 @@ from manukaclient.v1 import keystone_ext
 from manukaclient.v1 import users
 
 
-class Client(object):
+class Client:
     """Client for the Nectar Allocations v1 API
     :param string session: session
     :type session: :py:class:`keystoneauth.adapter.Adapter`
@@ -29,11 +29,12 @@ class Client(object):
         """Initialize a new client for the Manuka v1 API."""
         if session is None:
             raise exceptions.ClientException(
-                message='Session is required argument')
+                message='Session is required argument'
+            )
         self.http_client = client.SessionClient(
-            session, service_type=service_type, **kwargs)
+            session, service_type=service_type, **kwargs
+        )
         self.external_ids = external_ids.ExternalIdManager(self.http_client)
-        self.keystone_ext = keystone_ext.KeystoneExtManager(
-            self.http_client)
+        self.keystone_ext = keystone_ext.KeystoneExtManager(self.http_client)
         self.pending_users = users.PendingUserManager(self.http_client)
         self.users = users.UserManager(self.http_client)

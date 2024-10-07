@@ -18,14 +18,9 @@ from osc_lib.command import command
 
 
 class ExternalIdCommand(command.ShowOne):
-
     def get_parser(self, prog_name):
-        parser = super(ExternalIdCommand, self).get_parser(prog_name)
-        parser.add_argument(
-            'id',
-            metavar='<id>',
-            help=('ID of external_id')
-        )
+        parser = super().get_parser(prog_name)
+        parser.add_argument('id', metavar='<id>', help=('ID of external_id'))
         return parser
 
 
@@ -67,11 +62,10 @@ class UpdateExternalId(ExternalIdCommand):
     log = logging.getLogger(__name__ + '.UpdateExternalId')
 
     def get_parser(self, prog_name):
-        parser = super(UpdateExternalId, self).get_parser(prog_name)
+        parser = super().get_parser(prog_name)
         parser.add_argument(
-            '--user-id',
-            metavar='<user_id>',
-            help=('User ID of external ID'))
+            '--user-id', metavar='<user_id>', help=('User ID of external ID')
+        )
         return parser
 
     def take_action(self, parsed_args):
@@ -79,7 +73,8 @@ class UpdateExternalId(ExternalIdCommand):
         client = self.app.client_manager.account
         try:
             client.external_ids.update(
-                parsed_args.id, user_id=parsed_args.user_id)
+                parsed_args.id, user_id=parsed_args.user_id
+            )
         except exceptions.NotFound as ex:
             raise exceptions.CommandError(str(ex))
 

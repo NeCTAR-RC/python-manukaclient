@@ -17,45 +17,45 @@ from manukaclient.v1 import external_ids
 
 
 class User(base.Resource):
-
     date_fields = ['registered_at', 'terms_accepted_at', 'last_login']
 
     def __init__(self, manager, info, loaded=False, resp=None):
-        super(User, self).__init__(manager, info, loaded, resp)
+        super().__init__(manager, info, loaded, resp)
         raw_external_ids = getattr(self, 'external_ids', [])
         self.external_ids = []
         for eid in raw_external_ids:
             self.external_ids.append(external_ids.ExternalId(manager, eid))
 
     def __repr__(self):
-        return "<User %s>" % self.id
+        return f"<User {self.id}>"
 
 
 class UserManager(base.BasicManager):
-
     base_url = 'v1/users'
     resource_class = User
 
     def update(self, user_id, **kwargs):
-        return self._update('/%s/%s/' % (self.base_url, user_id), data=kwargs)
+        return self._update(f'/{self.base_url}/{user_id}/', data=kwargs)
 
     def refresh_orcid(self, user_id):
-        return self._post('/%s/%s/refresh-orcid/' % (self.base_url, user_id),
-                          data={})
+        return self._post(
+            f'/{self.base_url}/{user_id}/refresh-orcid/', data={}
+        )
 
     def projects(self, user_id, role_name):
-        return self._get('/%s/%s/projects/%s/' %
-                         (self.base_url, user_id, role_name),
-                         return_raw=True)
+        return self._get(
+            f'/{self.base_url}/{user_id}/projects/{role_name}/',
+            return_raw=True,
+        )
 
     def search(self, query):
-        return self._search('/%s/search/' % self.base_url,
-                            data={'search': query})
+        return self._search(
+            f'/{self.base_url}/search/', data={'search': query}
+        )
 
 
 class PendingUserManager(UserManager):
-
     base_url = 'v1/pending-users'
 
     def delete(self, user_id):
-        return self._delete('/%s/%s/' % (self.base_url, user_id))
+        return self._delete(f'/{self.base_url}/{user_id}/')
