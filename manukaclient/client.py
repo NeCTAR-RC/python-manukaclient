@@ -14,6 +14,8 @@ from keystoneauth1 import adapter
 from nectarclient_lib import exceptions
 from oslo_utils import importutils
 
+import manukaclient
+
 
 def Client(version, *args, **kwargs):
     module = 'manukaclient.v%s.client' % version
@@ -25,7 +27,7 @@ def Client(version, *args, **kwargs):
 class SessionClient(adapter.Adapter):
 
     client_name = 'python-manukaclient'
-    client_version = '0.7.1'
+    client_version = manukaclient.__version__
 
     def request(self, url, method, **kwargs):
         project_id = self.get_project_id()

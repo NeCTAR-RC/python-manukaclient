@@ -1,46 +1,16 @@
-#!/usr/bin/env python
+#
+#    Licensed under the Apache License, Version 2.0 (the "License"); you may
+#    not use this file except in compliance with the License. You may obtain
+#    a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+#    License for the specific language governing permissions and limitations
+#    under the License.
 
 import setuptools
 
-from pbr.packaging import parse_requirements
-
-entry_points = {
-    'openstack.cli.extension':
-    ['account = manukaclient.osc.plugin'],
-    'openstack.account.v1':
-    [
-        'account user list = manukaclient.osc.v1.users:ListUsers',
-        'account user search = manukaclient.osc.v1.users:SearchUsers',
-        'account user show = manukaclient.osc.v1.users:ShowUser',
-        'account user set = manukaclient.osc.v1.users:UpdateUser',
-        'account pending-user show = manukaclient.osc.v1.users:ShowPendingUser',
-        'account pending-user list = manukaclient.osc.v1.users:ListPendingUsers',
-        'account pending-user delete = manukaclient.osc.v1.users:DeletePendingUser',
-        'account external-id set = manukaclient.osc.v1.external_ids:UpdateExternalId',
-        'account external-id delete = manukaclient.osc.v1.external_ids:DeleteExternalId',
-    ]
-}
-
-
-setuptools.setup(
-    name='manukaclient',
-    version='1.1.0',
-    description=('Client for the Nectar Account system'),
-    author='Sam Morrison',
-    author_email='sorrison@gmail.com',
-    url='https://github.com/NeCTAR-RC/python-manukaclient',
-    packages=[
-        'manukaclient',
-    ],
-    include_package_data=True,
-    setup_requires=['pbr>=3.0.0'],
-    install_requires=parse_requirements(),
-    license="Apache",
-    zip_safe=False,
-    classifiers=(
-        'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python :: 3',
-        'Operating System :: OS Independent',
-    ),
-    entry_points=entry_points,
-)
+setuptools.setup(setup_requires=["pbr>=2.0.0"], pbr=True)
