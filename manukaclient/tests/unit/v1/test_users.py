@@ -40,14 +40,6 @@ class UsersTest(utils.TestCase):
         self.assertIsInstance(u.registered_at, datetime.datetime)
         self.assertIsInstance(u.terms_accepted_at, datetime.datetime)
 
-    def test_user_refresh_orcid(self):
-        u = self.cs.users.refresh_orcid(123)
-        self.cs.assert_called('POST', '/v1/users/123/refresh-orcid/')
-        self.assertIsInstance(u, users.User)
-        self.assertEqual(123, u.id)
-        self.assertIsInstance(u.registered_at, datetime.datetime)
-        self.assertIsInstance(u.terms_accepted_at, datetime.datetime)
-
     def test_user_projects(self):
         r = self.cs.users.projects(123, 3456)
         self.cs.assert_called('GET', '/v1/users/123/projects/3456/')
@@ -56,13 +48,15 @@ class UsersTest(utils.TestCase):
         self.assertEqual('98765432109876543210', r[1])
 
     def test_update(self):
-        new_orcid = 'new-orcid'
-        u = self.cs.users.update(123, orcid=new_orcid)
+        new_phone_number = 'new-phone_number'
+        u = self.cs.users.update(123, phone_number=new_phone_number)
         self.cs.assert_called(
-            'PATCH', '/v1/users/123/', json.dumps({'orcid': new_orcid})
+            'PATCH',
+            '/v1/users/123/',
+            json.dumps({'phone_number': new_phone_number}),
         )
         self.assertIsInstance(u, users.User)
-        self.assertEqual(new_orcid, u.orcid)
+        self.assertEqual(new_phone_number, u.phone_number)
 
     def test_search(self):
         query = 'needle'

@@ -85,7 +85,6 @@ class UpdateUser(UserCommand):
 
     def get_parser(self, prog_name):
         parser = super().get_parser(prog_name)
-        parser.add_argument('--orcid', metavar='<orcid>', help=('ORCID'))
         parser.add_argument(
             '--affiliation', metavar='<affiliation>', help=('Affiliation')
         )
@@ -108,7 +107,7 @@ class UpdateUser(UserCommand):
             raise exceptions.CommandError(str(ex))
 
         update = {}
-        for field in ['orcid', 'affiliation', 'phone_number', 'mobile_number']:
+        for field in ['affiliation', 'phone_number', 'mobile_number']:
             if getattr(parsed_args, field):
                 update[field] = getattr(parsed_args, field)
 

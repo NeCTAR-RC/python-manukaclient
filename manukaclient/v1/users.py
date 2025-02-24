@@ -37,11 +37,6 @@ class UserManager(base.BasicManager):
     def update(self, user_id, **kwargs):
         return self._update(f'/{self.base_url}/{user_id}/', data=kwargs)
 
-    def refresh_orcid(self, user_id):
-        return self._post(
-            f'/{self.base_url}/{user_id}/refresh-orcid/', data={}
-        )
-
     def projects(self, user_id, role_name):
         return self._get(
             f'/{self.base_url}/{user_id}/projects/{role_name}/',

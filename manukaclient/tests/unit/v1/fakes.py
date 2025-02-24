@@ -211,7 +211,7 @@ class FakeSessionClient(base_client.SessionClient):
     def patch_v1_users_123(self, data, **kw):
         return (
             202,
-            {'orcid': 'new-orcid'},
+            {'phone_number': 'new-phone_number'},
             {
                 "first_name": "uEelNrtNg3SPzh50nol5",
                 "affiliation": "staff",
@@ -221,7 +221,7 @@ class FakeSessionClient(base_client.SessionClient):
                 "terms_accepted_at": "2015-10-21T15:18:40",
                 "surname": "OIEBQswE3tNh89N5OTsW",
                 "user_id": "d1fa8867e42444cf8724e65fef1da549",
-                "phone_number": "33443322",
+                "phone_number": "new-phone_number",
                 "displayname": "lyWtLuxXWxku24cbhgjT",
                 "registered_at": "2015-10-21T15:18:40",
                 "email": "fmklmf4ikmlf34mnm",
@@ -232,9 +232,6 @@ class FakeSessionClient(base_client.SessionClient):
                 "terms_version": "v1",
             },
         )
-
-    def post_v1_users_123_refresh_orcid(self, data, **kw):
-        return (200, {}, generic_user)
 
     def get_v1_users_123_projects_3456(self, **kw):
         return (200, {}, ['01234567890123456789', '98765432109876543210'])
